@@ -11,6 +11,8 @@
 
 static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
+#pragma mark - NSTimer+TXTimerTarget
+
 @interface NSTimer (TXTimerTarget)
 
 + (NSTimer *)tx_scheduledTimerWithTimeInterval:(NSTimeInterval)interval repeat:(BOOL)yesOrNo block:(void(^)(NSTimer *timer))block;
@@ -33,6 +35,30 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 @end
 
+#pragma mark - UILabel+TXLabel
+
+@interface UILabel (TXLabel)
+
++ (instancetype)tx_label;
+
+@end
+
+@implementation UILabel (TXLabel)
+
++ (instancetype)tx_label {
+    UILabel *label = [[UILabel alloc]init];
+    label.numberOfLines = 0;
+    label.font = TXScrollLabelFont;
+    label.textColor = [UIColor whiteColor];
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
+}
+
+@end
+
+#pragma mark - TXScrollLabelView
+
 @interface TXScrollLabelView ()
 
 @property (assign, nonatomic) UIViewAnimationOptions options;
@@ -50,32 +76,25 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 @implementation TXScrollLabelView
 
 #pragma mark - init Methods
+/** Terminating app due to uncaught exception 'Warning TXScrollLabelView -[TXScrollLabelView init] unimplemented!', reason: 'unimplemented, use - tx_setScrollTitle:scrollType:scrollVelocity:options:'*/
+- (instancetype)init {
+    @throw [NSException exceptionWithName:[NSString stringWithFormat:@"Warning %@ %s unimplemented!", self.class, __func__] reason:@"unimplemented, please use - tx_setScrollTitle:scrollType:scrollVelocity:options:" userInfo:nil];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        /** Default BgColor. */
+        /** Default preference. */
         self.backgroundColor = [UIColor blackColor];
+        self.scrollEnabled = NO;
         
-        UILabel *upLabel = [[UILabel alloc]init];
-        upLabel.numberOfLines = 0;
+        UILabel *upLabel = [UILabel tx_label];
         self.upLabel = upLabel;
-        self.upLabel.font = TXScrollLabelFont;
-        self.upLabel.textColor = [UIColor whiteColor];
         [self addSubview:upLabel];
         
-        UILabel *downLabel = [[UILabel alloc]init];
-        downLabel.numberOfLines = 0;
+        UILabel *downLabel = [UILabel tx_label];
         self.downLabel = downLabel;
-        self.downLabel.font = TXScrollLabelFont;
-        self.downLabel.textColor = [UIColor whiteColor];
         [self addSubview:downLabel];
         
-        upLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        downLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        
-        upLabel.textAlignment = NSTextAlignmentCenter;
-        downLabel.textAlignment = NSTextAlignmentCenter;
-        self.scrollEnabled = NO;
     }
     return self;
 }
