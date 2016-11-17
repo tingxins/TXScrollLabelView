@@ -37,16 +37,45 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 #pragma mark - UILabel+TXLabel
 
-@interface UILabel (TXLabel)
+
+@interface TXScrollLabel : UILabel
+
+@property (assign, nonatomic) UIEdgeInsets contentInset;
+
+@end
+
+@implementation TXScrollLabel
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _contentInset = UIEdgeInsetsZero;
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        _contentInset = UIEdgeInsetsZero;
+    }
+    return self;
+}
+
+- (void)drawTextInRect:(CGRect)rect {
+    [super drawTextInRect:UIEdgeInsetsInsetRect(rect, _contentInset)];
+}
+
+@end
+
+@interface TXScrollLabel (TXLabel)
 
 + (instancetype)tx_label;
 
 @end
 
-@implementation UILabel (TXLabel)
+@implementation TXScrollLabel (TXLabel)
 
 + (instancetype)tx_label {
-    UILabel *label = [[UILabel alloc]init];
+    TXScrollLabel *label = [[TXScrollLabel alloc]init];
     label.numberOfLines = 0;
     label.font = TXScrollLabelFont;
     label.textColor = [UIColor whiteColor];
@@ -63,9 +92,9 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 @property (assign, nonatomic) UIViewAnimationOptions options;
 
-@property (weak, nonatomic) UILabel *upLabel;
+@property (weak, nonatomic) TXScrollLabel *upLabel;
 
-@property (weak, nonatomic) UILabel *downLabel;
+@property (weak, nonatomic) TXScrollLabel *downLabel;
 //定时器
 @property (strong, nonatomic) NSTimer *scrollTimer;
 //文本行分割数组
@@ -75,6 +104,28 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 @implementation TXScrollLabelView
 
+@synthesize scrollSpace = _scrollSpace;
+
+@synthesize font = _font;
+
+#pragma mark - Preference Methods
+
+- (void)setSomePreference {
+    /** Default preference. */
+    self.backgroundColor = [UIColor blackColor];
+    self.scrollEnabled = NO;
+}
+
+- (void)setSomeSubviews {
+    TXScrollLabel *upLabel = [TXScrollLabel tx_label];
+    self.upLabel = upLabel;
+    [self addSubview:upLabel];
+    
+    TXScrollLabel *downLabel = [TXScrollLabel tx_label];
+    self.downLabel = downLabel;
+    [self addSubview:downLabel];
+}
+
 #pragma mark - init Methods
 /** Terminating app due to uncaught exception 'Warning TXScrollLabelView -[TXScrollLabelView init] unimplemented!', reason: 'unimplemented, use - tx_setScrollTitle:scrollType:scrollVelocity:options:'*/
 - (instancetype)init {
@@ -83,31 +134,25 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        /** Default preference. */
-        self.backgroundColor = [UIColor blackColor];
-        self.scrollEnabled = NO;
         
-        UILabel *upLabel = [UILabel tx_label];
-        self.upLabel = upLabel;
-        [self addSubview:upLabel];
+        [self setSomePreference];
         
-        UILabel *downLabel = [UILabel tx_label];
-        self.downLabel = downLabel;
-        [self addSubview:downLabel];
-        
+        [self setSomeSubviews];
     }
     return self;
 }
 
-- (instancetype)initWithScrollTitle:(NSString *)scrollTitle
+- (instancetype)initWithTitle:(NSString *)scrollTitle
                          scrollType:(TXScrollLabelViewType)scrollType
                      scrollVelocity:(NSTimeInterval)scrollVelocity
-                            options:(UIViewAnimationOptions)options {
+                            options:(UIViewAnimationOptions)options
+                              inset:(UIEdgeInsets)inset {
     if (self = [super init]) {
-        self.tx_scrollTitle = scrollTitle;
-        self.tx_scrollType = scrollType;
-        self.tx_scrollVelocity = scrollVelocity;
+        self.scrollTitle = scrollTitle;
+        self.scrollType = scrollType;
+        self.scrollVelocity = scrollVelocity;
         self.options = options;
+        _scrollInset = inset;
     }
     return self;
 }
@@ -141,13 +186,40 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
                    scrollVelocity:(NSTimeInterval)scrollVelocity
                           options:(UIViewAnimationOptions)options {
     
-    return [[self alloc] initWithScrollTitle:scrollTitle
+    return [self tx_setScrollTitle:scrollTitle
+                        scrollType:scrollType
+                    scrollVelocity:scrollVelocity
+                           options:options inset:UIEdgeInsetsMake(0, 5, 0, 5)];
+}
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity
+                          options:(UIViewAnimationOptions)options
+                            inset:(UIEdgeInsets)inset {
+    
+    return [[self alloc] initWithTitle:scrollTitle
                                   scrollType:scrollType
                               scrollVelocity:scrollVelocity
-                                     options:options];
+                                     options:options inset:inset];
 }
 
 #pragma mark - Getter & Setter Methods
+
+- (void)setScrollInset:(UIEdgeInsets)scrollInset {
+    _scrollInset = scrollInset;
+    [self setupSubviewsLayout];
+}
+
+- (void)setScrollSpace:(CGFloat)scrollSpace {
+    _scrollSpace = scrollSpace;
+    [self setupSubviewsLayout];
+}
+
+- (CGFloat)scrollSpace {
+    if (_scrollSpace) return _scrollSpace;
+    return 0.f;
+}
 
 - (UIViewAnimationOptions)options {
     if (_options) return _options;
@@ -162,80 +234,104 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 - (void)setTx_scrollContentSize:(CGRect)tx_scrollContentSize{
     _tx_scrollContentSize = tx_scrollContentSize;
     self.frame = _tx_scrollContentSize;
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
     [self setupSubviewsLayout];
 }
 
 - (void)setTx_scrollTitleColor:(UIColor *)tx_scrollTitleColor {
-    _tx_scrollTitleColor = tx_scrollTitleColor;
-    self.upLabel.textColor = _tx_scrollTitleColor;
-    self.downLabel.textColor = _tx_scrollTitleColor;
+    _scrollTitleColor = tx_scrollTitleColor;
+    [self setupTextColor:tx_scrollTitleColor];
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+    _textAlignment = textAlignment;
+    self.upLabel.textAlignment = textAlignment;
+    self.downLabel.textAlignment = textAlignment;
+}
+
+- (void)setFont:(UIFont *)font {
+    _font = font;
+    self.upLabel.font = font;
+    self.downLabel.font = font;
+    [self setupSubviewsLayout];
+}
+
+- (UIFont *)font {
+    if (_font) return _font;
+    return TXScrollLabelFont;
+}
+
+#pragma mark - Custom Methods
+
+- (void)setupTextColor:(UIColor *)color {
+    self.upLabel.textColor = color;
+    self.downLabel.textColor = color;
+}
+
+- (void)setupTitle:(NSString *)title {
+    self.upLabel.text = title;
+    self.downLabel.text = title;
+}
+
+- (void)setupRepeatTypeLayout {
+    CGFloat labelW = self.tx_width - _scrollInset.left - _scrollInset.right;
+    CGFloat labelX = _scrollInset.left;
+    self.upLabel.frame = CGRectMake(labelX, 0, labelW, self.tx_height);
+    self.downLabel.frame = CGRectMake(labelX, CGRectGetMaxY(self.upLabel.frame), labelW, self.tx_height);
+}
+
+- (void)setupLRUDTypeLayoutWithMaxSize:(CGSize)size
+                                 width:(CGFloat)width
+                                height:(CGFloat)height
+                      completedHandler:(void(^)(CGSize size))completedHandler {
+    CGSize scrollLabelS = [_scrollTitle boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.font} context:nil].size;
+    //回调获取布局数据
+    completedHandler(scrollLabelS);
+    [self setupTitle:_scrollTitle];
 }
 
 #pragma mark - SubviewsLayout Methods
-//,,,
+
 - (void)setupSubviewsLayout {
-    switch (_tx_scrollType) {
-        case TXScrollLabelViewTypeLeftRight:
-        {
-            CGSize scrollLabelS = [_tx_scrollTitle boundingRectWithSize:CGSizeMake(0, self.tx_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: TXScrollLabelFont} context:nil].size;
-            self.upLabel.frame = CGRectMake(10, 0, scrollLabelS.width, self.tx_height);
-            self.upLabel.text = _tx_scrollTitle;
+    switch (_scrollType) {
+        case TXScrollLabelViewTypeLeftRight: {
+            CGFloat labelMaxH = self.tx_height;//最大高度
+            CGFloat labelMaxW = 0;//无限宽
+            CGFloat labelH = labelMaxH;//label实际高度
+            __block CGFloat labelW = 0;//label宽度，有待计算
             
-            self.downLabel.frame = CGRectMake(CGRectGetMaxX(self.upLabel.frame) + 20, 0, scrollLabelS.width, self.tx_height);
-            self.downLabel.text = _tx_scrollTitle;
-            self.contentSize = CGSizeMake(scrollLabelS.width * 2 + 40, scrollLabelS.height);
-            self.bounds = CGRectMake(0, 0, MIN(self.tx_width, scrollLabelS.width), self.tx_height);
+            [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
+                labelW = MAX(size.width, self.tx_width);
+                //开始布局
+                self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
+                //由于 TXScrollLabelViewTypeLeftRight\UpDown 类型 X\Y 值均不一样，此处不再block中处理！
+                self.downLabel.frame = CGRectMake(CGRectGetMaxX(self.upLabel.frame) + self.scrollSpace, 0, labelW, labelH);
+            }];
         }
             break;
+        case TXScrollLabelViewTypeUpDown: {
+            CGFloat labelMaxH = 0;
+            CGFloat labelMaxW = self.tx_width - _scrollInset.left - _scrollInset.right;
+            CGFloat labelW = labelMaxW;
+            __block CGFloat labelH = 0;
             
-        case TXScrollLabelViewTypeUpDown:
-        {
-            
-            CGSize scrollLabelS = [_tx_scrollTitle boundingRectWithSize:CGSizeMake(self.tx_width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: TXScrollLabelFont} context:nil].size;
-            CGFloat scrollLabelH = MAX(scrollLabelS.height, self.tx_height);
-            self.upLabel.frame = CGRectMake(0, 0, scrollLabelS.width, scrollLabelH);
-            self.upLabel.text = _tx_scrollTitle;
-            
-            self.downLabel.frame = CGRectMake(0, CGRectGetMaxY(self.upLabel.frame), scrollLabelS.width, scrollLabelH);
-            self.downLabel.text = _tx_scrollTitle;
-            self.contentSize = CGSizeMake(scrollLabelS.width, scrollLabelH * 2);
-            self.bounds = CGRectMake(0, 0, MIN(self.tx_width, scrollLabelS.width), self.tx_height);
+            [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
+                labelH = MAX(size.height, self.tx_height);
+                self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
+                self.downLabel.frame = CGRectMake(_scrollInset.left, CGRectGetMaxY(self.upLabel.frame) + self.scrollSpace, labelW, labelH);
+            }];
         }
             break;
-            
-        case TXScrollLabelViewTypeFlipRepeat:
-        {
-            CGSize scrollLabelS = [_tx_scrollTitle boundingRectWithSize:CGSizeMake(self.tx_width, self.tx_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: TXScrollLabelFont} context:nil].size;
-            self.upLabel.frame = CGRectMake(0, 0, scrollLabelS.width, self.tx_height);
-            self.upLabel.text = _tx_scrollTitle;
-            
-            self.downLabel.frame = CGRectMake(0, CGRectGetMaxY(self.upLabel.frame), scrollLabelS.width, self.tx_height);;
-            self.downLabel.text = _tx_scrollTitle;
-            self.contentSize = CGSizeMake(scrollLabelS.width, scrollLabelS.height * 2);
-            self.bounds = CGRectMake(0, 0, MIN(self.tx_width, scrollLabelS.width), self.tx_height);
+        case TXScrollLabelViewTypeFlipRepeat: {
+            [self setupRepeatTypeLayout];
+            [self setupTitle:_scrollTitle];
         }
             break;
-            
-            
         case TXScrollLabelViewTypeFlipNoRepeat:
-        {
-            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc]init];
-            paraStyle.lineSpacing = 10;
-            NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_tx_scrollTitle];
-            [attributedStr addAttributes:@{NSFontAttributeName:TXScrollLabelFont, NSParagraphStyleAttributeName:paraStyle} range:NSMakeRange(0, attributedStr.length)];
-            
-            CGSize scrollLabelS = [attributedStr boundingRectWithSize:CGSizeMake(self.tx_width, 0) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-            
-            self.upLabel.frame = CGRectMake(0, 0, scrollLabelS.width, self.tx_height);
-            self.downLabel.frame = CGRectMake(0, CGRectGetMaxY(self.upLabel.frame), scrollLabelS.width, self.tx_height);
-            
-            CGFloat width = scrollLabelS.width;
-            if (!self.tx_width) {
-                self.tx_width = width;
-            }
-            self.contentSize = CGSizeMake(self.tx_width, scrollLabelS.height * 2);
-            self.bounds = CGRectMake(0, 0, MIN(self.tx_width, scrollLabelS.width), self.tx_height);
-        }
+            [self setupRepeatTypeLayout];
             break;
             
         default:
@@ -273,30 +369,28 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 - (void)updateScrolling {
     __weak typeof(self) weakSelf = self;
-    switch (self.tx_scrollType) {
+    switch (self.scrollType) {
         case TXScrollLabelViewTypeLeftRight:
         {
-            if (self.contentSize.width * 0.5 == self.contentOffset.x || self.contentOffset.x > self.contentSize.width * 0.5) {
+            if (self.contentOffset.x >= (_scrollInset.left + self.upLabel.tx_width + self.scrollSpace)) {
                 [self endScrolling];
-                self.contentOffset = CGPointMake(2, 0);//x增加偏移量，防止卡顿
+                self.contentOffset = CGPointMake(_scrollInset.left + 1, 0);//x增加偏移量，防止卡顿
                 [self beginScrolling];
-                return;
+            }else {
+                self.contentOffset = CGPointMake(self.contentOffset.x + 1, self.contentOffset.y);
             }
-            self.contentOffset = CGPointMake(self.contentOffset.x + 1, self.contentOffset.y);
-            
         }
             break;
             
         case TXScrollLabelViewTypeUpDown:
         {
-            if (self.contentOffset.y > self.upLabel.frame.size.height) {
+            if (self.contentOffset.y >= (self.upLabel.frame.size.height + self.scrollSpace)) {
                 [self endScrolling];
                 self.contentOffset = CGPointMake(0, 2);//y增加偏移量，防止卡顿
                 [self beginScrolling];
                 return;
             }
             self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y + 1);
-            
         }
             break;
             
@@ -305,7 +399,7 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
             
             [self endScrolling];
             
-            NSTimeInterval velocity = self.tx_scrollVelocity ? self.tx_scrollVelocity : 2;
+            NSTimeInterval velocity = self.scrollVelocity ? self.scrollVelocity : 2;
             
             self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
                 TXScrollLabelView *strongSelf = weakSelf;
@@ -325,7 +419,7 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
             
             [self endScrolling];
             
-            NSTimeInterval velocity = self.tx_scrollVelocity ? self.tx_scrollVelocity : 2;
+            NSTimeInterval velocity = self.scrollVelocity ? self.scrollVelocity : 2;
             
             self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
                 TXScrollLabelView *strongSelf = weakSelf;
@@ -352,7 +446,7 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
             self.downLabel.tx_y = 0;
         } completion:^(BOOL finished) {
             self.upLabel.tx_y = self.tx_height;
-            UILabel *tempLabel = self.upLabel;
+            TXScrollLabel *tempLabel = self.upLabel;
             self.upLabel = self.downLabel;
             self.downLabel = tempLabel;
         }];
@@ -372,39 +466,28 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 -(NSArray *)getSeparatedLinesFromLabel {
     
-    NSString *text = _tx_scrollTitle;
-    UIFont *font = [UIFont systemFontOfSize:15];
-    
+    NSString *text = _scrollTitle;
+    UIFont *font = self.font;
     CTFontRef myFont = CTFontCreateWithName((__bridge CFStringRef)([font fontName]), [font pointSize], NULL);
-    
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:text];
-    
     [attStr addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)myFont range:NSMakeRange(0, attStr.length)];
     
     CTFramesetterRef frameSetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attStr);
-    
     CGMutablePathRef path = CGPathCreateMutable();
-    
-    CGPathAddRect(path, NULL, CGRectMake(0,0,self.tx_width,100000));
-    
+    CGPathAddRect(path, NULL, CGRectMake(0,0,self.upLabel.tx_width,100000));
     CTFrameRef frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), path, NULL);
     
     NSArray *lines = (__bridge NSArray *)CTFrameGetLines(frame);
     
     NSMutableArray *linesArray = [[NSMutableArray alloc]init];
-    
     for (id line in lines) {
-        
         CTLineRef lineRef = (__bridge CTLineRef )line;
-        
         CFRange lineRange = CTLineGetStringRange(lineRef);
-        
         NSRange range = NSMakeRange(lineRange.location, lineRange.length);
-        
         NSString *lineString = [text substringWithRange:range];
-        
         [linesArray addObject:lineString];
     }
+    
     return (NSArray *)linesArray;
 }
 
