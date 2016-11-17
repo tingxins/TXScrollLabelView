@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		973DB2411DB9FBED00DE9D77 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 973DB23E1DB9FBED00DE9D77 /* TXScrollLabelView.m */; };
-		973DB2421DB9FBED00DE9D77 /* UIView+TXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 973DB2401DB9FBED00DE9D77 /* UIView+TXFrame.m */; };
+		972620CA1DDE2F0600009F23 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 972620C61DDE2F0600009F23 /* TXScrollLabelView.m */; };
+		972620CB1DDE2F0600009F23 /* UIView+TXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 972620C91DDE2F0600009F23 /* UIView+TXFrame.m */; };
 		97886D991DB8E0AF00A0B326 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D981DB8E0AF00A0B326 /* main.m */; };
 		97886D9C1DB8E0AF00A0B326 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */; };
 		97886D9F1DB8E0AF00A0B326 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9E1DB8E0AF00A0B326 /* ViewController.m */; };
@@ -37,10 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		973DB23D1DB9FBED00DE9D77 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
-		973DB23E1DB9FBED00DE9D77 /* TXScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelView.m; sourceTree = "<group>"; };
-		973DB23F1DB9FBED00DE9D77 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
-		973DB2401DB9FBED00DE9D77 /* UIView+TXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXFrame.m"; sourceTree = "<group>"; };
+		972620C61DDE2F0600009F23 /* TXScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelView.m; sourceTree = "<group>"; };
+		972620C71DDE2F0600009F23 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
+		972620C81DDE2F0600009F23 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
+		972620C91DDE2F0600009F23 /* UIView+TXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXFrame.m"; sourceTree = "<group>"; };
 		97886D941DB8E0AF00A0B326 /* TXScrollLabelViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXScrollLabelViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97886D981DB8E0AF00A0B326 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		97886D9A1DB8E0AF00A0B326 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,15 +84,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		973DB23C1DB9FBED00DE9D77 /* TXScrollLabelView */ = {
+		972620C51DDE2F0600009F23 /* TXScrollLabelView */ = {
 			isa = PBXGroup;
 			children = (
-				973DB23D1DB9FBED00DE9D77 /* TXScrollLabelView.h */,
-				973DB23E1DB9FBED00DE9D77 /* TXScrollLabelView.m */,
-				973DB23F1DB9FBED00DE9D77 /* UIView+TXFrame.h */,
-				973DB2401DB9FBED00DE9D77 /* UIView+TXFrame.m */,
+				972620C61DDE2F0600009F23 /* TXScrollLabelView.m */,
+				972620C71DDE2F0600009F23 /* TXScrollLabelView.h */,
+				972620C81DDE2F0600009F23 /* UIView+TXFrame.h */,
+				972620C91DDE2F0600009F23 /* UIView+TXFrame.m */,
 			);
-			path = TXScrollLabelView;
+			name = TXScrollLabelView;
+			path = ../../TXScrollLabelView;
 			sourceTree = "<group>";
 		};
 		97886D8B1DB8E0AF00A0B326 = {
@@ -118,7 +119,7 @@
 		97886D961DB8E0AF00A0B326 /* TXScrollLabelViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				973DB23C1DB9FBED00DE9D77 /* TXScrollLabelView */,
+				972620C51DDE2F0600009F23 /* TXScrollLabelView */,
 				97886D9A1DB8E0AF00A0B326 /* AppDelegate.h */,
 				97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */,
 				97886D9D1DB8E0AF00A0B326 /* ViewController.h */,
@@ -294,8 +295,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				973DB2421DB9FBED00DE9D77 /* UIView+TXFrame.m in Sources */,
-				973DB2411DB9FBED00DE9D77 /* TXScrollLabelView.m in Sources */,
+				972620CB1DDE2F0600009F23 /* UIView+TXFrame.m in Sources */,
+				972620CA1DDE2F0600009F23 /* TXScrollLabelView.m in Sources */,
 				97886D9F1DB8E0AF00A0B326 /* ViewController.m in Sources */,
 				97886D9C1DB8E0AF00A0B326 /* AppDelegate.m in Sources */,
 				97886D991DB8E0AF00A0B326 /* main.m in Sources */,
