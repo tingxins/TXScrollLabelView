@@ -12,7 +12,6 @@
 		97886D991DB8E0AF00A0B326 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D981DB8E0AF00A0B326 /* main.m */; };
 		97886D9C1DB8E0AF00A0B326 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */; };
 		97886D9F1DB8E0AF00A0B326 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9E1DB8E0AF00A0B326 /* ViewController.m */; };
-		97886DA21DB8E0AF00A0B326 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97886DA01DB8E0AF00A0B326 /* Main.storyboard */; };
 		97886DA41DB8E0AF00A0B326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97886DA31DB8E0AF00A0B326 /* Assets.xcassets */; };
 		97886DA71DB8E0AF00A0B326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */; };
 		97886DB21DB8E0AF00A0B326 /* TXScrollLabelViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886DB11DB8E0AF00A0B326 /* TXScrollLabelViewDemoTests.m */; };
@@ -47,7 +46,6 @@
 		97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		97886D9D1DB8E0AF00A0B326 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		97886D9E1DB8E0AF00A0B326 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		97886DA11DB8E0AF00A0B326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97886DA31DB8E0AF00A0B326 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97886DA61DB8E0AF00A0B326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97886DA81DB8E0AF00A0B326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,8 +85,8 @@
 		972620C51DDE2F0600009F23 /* TXScrollLabelView */ = {
 			isa = PBXGroup;
 			children = (
-				972620C61DDE2F0600009F23 /* TXScrollLabelView.m */,
 				972620C71DDE2F0600009F23 /* TXScrollLabelView.h */,
+				972620C61DDE2F0600009F23 /* TXScrollLabelView.m */,
 				972620C81DDE2F0600009F23 /* UIView+TXFrame.h */,
 				972620C91DDE2F0600009F23 /* UIView+TXFrame.m */,
 			);
@@ -124,7 +122,6 @@
 				97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */,
 				97886D9D1DB8E0AF00A0B326 /* ViewController.h */,
 				97886D9E1DB8E0AF00A0B326 /* ViewController.m */,
-				97886DA01DB8E0AF00A0B326 /* Main.storyboard */,
 				97886DA31DB8E0AF00A0B326 /* Assets.xcassets */,
 				97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */,
 				97886DA81DB8E0AF00A0B326 /* Info.plist */,
@@ -221,7 +218,7 @@
 		97886D8C1DB8E0AF00A0B326 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = tingxins;
 				TargetAttributes = {
 					97886D931DB8E0AF00A0B326 = {
@@ -270,7 +267,6 @@
 			files = (
 				97886DA71DB8E0AF00A0B326 /* LaunchScreen.storyboard in Resources */,
 				97886DA41DB8E0AF00A0B326 /* Assets.xcassets in Resources */,
-				97886DA21DB8E0AF00A0B326 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,14 +331,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		97886DA01DB8E0AF00A0B326 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				97886DA11DB8E0AF00A0B326 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -372,6 +360,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -419,6 +408,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

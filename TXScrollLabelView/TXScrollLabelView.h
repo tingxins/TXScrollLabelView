@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 @property (copy, nonatomic) NSString *scrollTitle;
 /** 滚动类型 */
 @property (assign, nonatomic) TXScrollLabelViewType scrollType;
-/** 滚动速率 */
+/** 滚动速率([1, 10])，单位秒s */
 @property (assign, nonatomic) NSTimeInterval scrollVelocity;
 /** 文本颜色 */
 @property (strong, nonatomic) UIColor *scrollTitleColor;

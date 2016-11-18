@@ -100,6 +100,9 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 //文本行分割数组
 @property (strong, nonatomic) NSArray *scrollArray;
 
+//是否第一次开始计时
+@property (assign, nonatomic, getter=isFirstTime) BOOL firstTime;
+
 @end
 
 @implementation TXScrollLabelView
@@ -205,6 +208,22 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 #pragma mark - Getter & Setter Methods
+
+- (void)setScrollVelocity:(NSTimeInterval)scrollVelocity {
+    CGFloat velocity = scrollVelocity;
+    if (scrollVelocity < 1) {
+        velocity = 1;
+    }else if (scrollVelocity > 10) {
+        velocity = 10;
+    }
+    
+    if (_scrollType == TXScrollLabelViewTypeLeftRight || _scrollType == TXScrollLabelViewTypeUpDown) {
+        _scrollVelocity = velocity / 30.0;
+    }else {
+        _scrollVelocity = velocity;
+    }
+    
+}
 
 - (void)setScrollInset:(UIEdgeInsets)scrollInset {
     _scrollInset = scrollInset;
@@ -344,15 +363,15 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 - (void)beginScrolling {
     [self endScrolling];
     
-    __weak typeof(self) weakSelf = self;
-    self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:0.1 repeat:YES block:^(NSTimer *timer) {
-        TXScrollLabelView *strongSelf = weakSelf;
-        if (strongSelf) {
-            [self updateScrolling];
+    if (_scrollType == TXScrollLabelViewTypeFlipRepeat || _scrollType == TXScrollLabelViewTypeFlipNoRepeat) {
+        _firstTime = YES;
+        if (_scrollType == TXScrollLabelViewTypeFlipNoRepeat) {
+            [self setupTitle:[self.scrollArray firstObject]];//初次显示
         }
-    }];
-    
-    [[NSRunLoop mainRunLoop] addTimer:self.scrollTimer forMode:NSRunLoopCommonModes];
+        [self startWithVelocity:1];
+    }else {
+        [self startWithVelocity:self.scrollVelocity];
+    }
 }
 
 - (void)endScrolling {
@@ -365,10 +384,31 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     self.scrollTimer = nil;
 }
 
+//开始计时
+- (void)startWithVelocity:(NSTimeInterval)velocity {
+    __weak typeof(self) weakSelf = self;
+    self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
+        TXScrollLabelView *strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf updateScrolling];
+        }
+    }];
+    [[NSRunLoop mainRunLoop] addTimer:self.scrollTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)updateRepeatTypeWithOperation:(void(^)(NSTimeInterval))operation {
+    NSTimeInterval velocity = self.scrollVelocity;
+    if (self.isFirstTime) {
+        _firstTime = NO;
+        [self endScrolling];
+        [self startWithVelocity:velocity];
+    }
+    operation(velocity);
+}
+
 #pragma mark - Scrolling Animation Methods
 
 - (void)updateScrolling {
-    __weak typeof(self) weakSelf = self;
     switch (self.scrollType) {
         case TXScrollLabelViewTypeLeftRight:
         {
@@ -388,52 +428,27 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
                 [self endScrolling];
                 self.contentOffset = CGPointMake(0, 2);//y增加偏移量，防止卡顿
                 [self beginScrolling];
-                return;
+            }else {
+                self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y + 1);
             }
-            self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y + 1);
         }
             break;
             
         case TXScrollLabelViewTypeFlipRepeat:
         {
-            
-            [self endScrolling];
-            
-            NSTimeInterval velocity = self.scrollVelocity ? self.scrollVelocity : 2;
-            
-            self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
-                TXScrollLabelView *strongSelf = weakSelf;
-                if (strongSelf) {
-                    [self updateScrolling];
-                }
+            [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
+                [self flipAnimationWithDelay:velocity];
             }];
-            
-            [[NSRunLoop mainRunLoop] addTimer:self.scrollTimer forMode:NSRunLoopCommonModes];
-            
-            [self flipAnimationWithDelay:velocity];
         }
             break;
             
         case TXScrollLabelViewTypeFlipNoRepeat:
         {
-            
-            [self endScrolling];
-            
-            NSTimeInterval velocity = self.scrollVelocity ? self.scrollVelocity : 2;
-            
-            self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
-                TXScrollLabelView *strongSelf = weakSelf;
-                if (strongSelf) {
-                    [self updateScrolling];
-                }
+            [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
+                [self flipNoCleAnimationWithDelay:velocity];
             }];
-            
-            [[NSRunLoop mainRunLoop] addTimer:self.scrollTimer forMode:NSRunLoopCommonModes];
-            
-            [self flipNoCleAnimationWithDelay:velocity];
         }
             break;
-            
         default:
             break;
     }
