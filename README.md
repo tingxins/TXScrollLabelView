@@ -27,7 +27,7 @@ And `scrollVelocity` property now supports all above enum of `TXScrollLabelViewT
 
         NSString *scrollTitle = @"xxxxxx";
         //options 是 TXScrollLabelViewType 枚举类型， 此处仅为了方便举例
-        TXScrollLabelView *scrollLabelView = [TXScrollLabelView tx_setScrollTitle:scrollTitle scrollType:options scrollVelocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
+        TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:options velocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
         [self.view addSubview:scrollLabelView];
         
         //布局(Required)
