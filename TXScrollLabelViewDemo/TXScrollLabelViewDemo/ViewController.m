@@ -37,7 +37,7 @@
     for (int options = 0; options < 4; ++ options) {
         NSString *scrollTitle = @"If you don't control the image server you're using, you may not be able to change the URL when its content is updated. This is the case for Facebook avatar URLs for instance. In such case, you may use the SDWebImageRefreshCached flag. This will slightly degrade the performance but will respect the HTTP caching control headers";
         //options 是 TXScrollLabelViewType 枚举类型， 此处仅为了方便举例
-        TXScrollLabelView *scrollLabelView = [TXScrollLabelView tx_setScrollTitle:scrollTitle scrollType:options scrollVelocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
+        TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:options velocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
         [self.view addSubview:scrollLabelView];
         
         //布局(Required)
