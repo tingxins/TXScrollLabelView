@@ -21,6 +21,33 @@
 
 And `scrollVelocity` property now supports all above enum of `TXScrollLabelViewType`, just enjoy it!
 
+## Installation
+
+There are two ways to use TXScrollLabelView in your project:
+
+* Using CocoaPods
+
+* By cloning the project into your repository
+
+* Using Carthage (not support now)
+
+### Installation with CocoaPods
+    
+CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries in your projects. 
+
+**Podfile**
+
+    platform :ios, '7.0'
+    pod 'TXScrollLabelView'
+
+### Installation with Manual
+
+* Drag **ALL** files in the TXScrollLabelView folder to project
+
+* Import the main file：
+    
+        #import "TXScrollLabelView.h”
+    
 ## Usage 
 
 **Objective-C example :**
