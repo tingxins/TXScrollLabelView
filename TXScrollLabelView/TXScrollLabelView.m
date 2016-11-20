@@ -130,9 +130,9 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 #pragma mark - init Methods
-/** Terminating app due to uncaught exception 'Warning TXScrollLabelView -[TXScrollLabelView init] unimplemented!', reason: 'unimplemented, use - tx_setScrollTitle:scrollType:scrollVelocity:options:'*/
+/** Terminating app due to uncaught exception 'Warning TXScrollLabelView -[TXScrollLabelView init] unimplemented!', reason: 'unimplemented, use - scrollWithTitle:scrollType:scrollVelocity:options:'*/
 - (instancetype)init {
-    @throw [NSException exceptionWithName:[NSString stringWithFormat:@"Warning %@ %s unimplemented!", self.class, __func__] reason:@"unimplemented, please use - tx_setScrollTitle:scrollType:scrollVelocity:options:" userInfo:nil];
+    @throw [NSException exceptionWithName:[NSString stringWithFormat:@"Warning %@ %s unimplemented!", self.class, __func__] reason:@"unimplemented, please use - scrollWithTitle:scrollType:scrollVelocity:options:" userInfo:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -146,10 +146,10 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 - (instancetype)initWithTitle:(NSString *)scrollTitle
-                         scrollType:(TXScrollLabelViewType)scrollType
-                     scrollVelocity:(NSTimeInterval)scrollVelocity
-                            options:(UIViewAnimationOptions)options
-                              inset:(UIEdgeInsets)inset {
+                         type:(TXScrollLabelViewType)scrollType
+                     velocity:(NSTimeInterval)scrollVelocity
+                      options:(UIViewAnimationOptions)options
+                        inset:(UIEdgeInsets)inset {
     if (self = [super init]) {
         self.scrollTitle = scrollTitle;
         self.scrollType = scrollType;
@@ -160,51 +160,53 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     return self;
 }
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle {
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle {
     
-    return [self tx_setScrollTitle:scrollTitle
-                        scrollType:TXScrollLabelViewTypeLeftRight];
+    return [self scrollWithTitle:scrollTitle
+                            type:TXScrollLabelViewTypeLeftRight];
 }
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType {
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                           type:(TXScrollLabelViewType)scrollType {
     
-    return [self tx_setScrollTitle:scrollTitle
-                        scrollType:scrollType
-                    scrollVelocity:TXScrollDefaultTimeInterval];
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType
+                        velocity:TXScrollDefaultTimeInterval];
 }
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity {
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                       type:(TXScrollLabelViewType)scrollType
+                   velocity:(NSTimeInterval)scrollVelocity {
     
-    return [self tx_setScrollTitle:scrollTitle
-                        scrollType:scrollType
-                    scrollVelocity:scrollVelocity
-                           options:UIViewAnimationOptionCurveEaseInOut];
+    return [self scrollWithTitle:scrollTitle
+                        type:scrollType
+                    velocity:scrollVelocity
+                     options:UIViewAnimationOptionCurveEaseInOut];
 }
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity
-                          options:(UIViewAnimationOptions)options {
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                       type:(TXScrollLabelViewType)scrollType
+                   velocity:(NSTimeInterval)scrollVelocity
+                    options:(UIViewAnimationOptions)options {
     
-    return [self tx_setScrollTitle:scrollTitle
-                        scrollType:scrollType
-                    scrollVelocity:scrollVelocity
-                           options:options inset:UIEdgeInsetsMake(0, 5, 0, 5)];
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType
+                        velocity:scrollVelocity
+                         options:options
+                           inset:UIEdgeInsetsMake(0, 5, 0, 5)];
 }
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity
-                          options:(UIViewAnimationOptions)options
-                            inset:(UIEdgeInsets)inset {
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                       type:(TXScrollLabelViewType)scrollType
+                   velocity:(NSTimeInterval)scrollVelocity
+                    options:(UIViewAnimationOptions)options
+                      inset:(UIEdgeInsets)inset {
     
     return [[self alloc] initWithTitle:scrollTitle
-                                  scrollType:scrollType
-                              scrollVelocity:scrollVelocity
-                                     options:options inset:inset];
+                                  type:scrollType
+                              velocity:scrollVelocity
+                               options:options
+                                 inset:inset];
 }
 
 #pragma mark - Getter & Setter Methods
@@ -508,6 +510,55 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 - (void)dealloc {
     [self endScrolling];
+}
+
+@end
+
+@implementation TXScrollLabelView (TXScrollLabelViewDeprecated)
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle {
+    
+    return [self scrollWithTitle:scrollTitle];
+}
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType {
+    
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType];
+}
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity {
+    
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType
+                        velocity:scrollVelocity];
+}
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity
+                          options:(UIViewAnimationOptions)options {
+    
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType
+                        velocity:scrollVelocity
+                         options:options];
+}
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity
+                          options:(UIViewAnimationOptions)options
+                            inset:(UIEdgeInsets)inset {
+    
+    return [self scrollWithTitle:scrollTitle
+                            type:scrollType
+                        velocity:scrollVelocity
+                         options:options
+                           inset:inset];
 }
 
 @end

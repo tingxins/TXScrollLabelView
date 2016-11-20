@@ -5,7 +5,8 @@
 //  Copyright © 2016 tingxins. All rights reserved.
 //  滚动视图
 
-#define TX_DEPRECATED(explain) __attribute__((deprecated(explain)))
+#define TX_DEPRECATED_METHODS(explain) __attribute__((deprecated(explain)))
+#define TX_DEPRECATED_MESSAGES(explain) __deprecated_msg(explain)
 
 #import <UIKit/UIKit.h>
 #import "UIView+TXFrame.h"
@@ -20,17 +21,17 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 };
 
 /*************WILL BE REMOVED IN FUTURE.********************/
-#pragma mark - Deprecated Property
+#pragma mark - Deprecated property
 /** Deprecated, please Use `scrollTitle` */
-@property (copy, nonatomic) NSString *tx_scrollTitle TX_DEPRECATED("Deprecated, please Use `scrollTitle`");
+@property (copy, nonatomic) NSString *tx_scrollTitle TX_DEPRECATED_METHODS("Deprecated, please Use `scrollTitle`");
 /** Deprecated, please Use `scrollType` */
-@property (assign, nonatomic) TXScrollLabelViewType tx_scrollType TX_DEPRECATED("Deprecated, please Use `scrollType`");
+@property (assign, nonatomic) TXScrollLabelViewType tx_scrollType TX_DEPRECATED_METHODS("Deprecated, please Use `scrollType`");
 /** Deprecated, please Use `scrollVelocity` */
-@property (assign, nonatomic) NSTimeInterval tx_scrollVelocity TX_DEPRECATED("Deprecated, please Use `scrollVelocity`");
+@property (assign, nonatomic) NSTimeInterval tx_scrollVelocity TX_DEPRECATED_METHODS("Deprecated, please Use `scrollVelocity`");
 /** Deprecated, please Use `frame` */
-@property (assign, nonatomic) CGRect tx_scrollContentSize TX_DEPRECATED("Deprecated, please Use `frame`");
+@property (assign, nonatomic) CGRect tx_scrollContentSize TX_DEPRECATED_METHODS("Deprecated, please Use `frame`");
 /** Deprecated, please Use `scrollTitleColor` */
-@property (strong, nonatomic) UIColor *tx_scrollTitleColor TX_DEPRECATED("Deprecated, please Use `scrollTitleColor`");
+@property (strong, nonatomic) UIColor *tx_scrollTitleColor TX_DEPRECATED_METHODS("Deprecated, please Use `scrollTitleColor`");
 /*************ALL ABOVE.***********************************/
 
 #pragma mark - On Used Property
@@ -57,25 +58,24 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 #pragma mark - Class Methods
 
 - (instancetype)initWithTitle:(NSString *)scrollTitle
-                         scrollType:(TXScrollLabelViewType)scrollType
-                     scrollVelocity:(NSTimeInterval)scrollVelocity
-                            options:(UIViewAnimationOptions)options
-                              inset:(UIEdgeInsets)inset;
+                         type:(TXScrollLabelViewType)scrollType
+                     velocity:(NSTimeInterval)scrollVelocity
+                      options:(UIViewAnimationOptions)options
+                        inset:(UIEdgeInsets)inset;
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle;
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle;
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType;
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                           type:(TXScrollLabelViewType)scrollType;
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity;
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                           type:(TXScrollLabelViewType)scrollType
+                       velocity:(NSTimeInterval)scrollVelocity;
 
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity
-                          options:(UIViewAnimationOptions)options;
-
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                           type:(TXScrollLabelViewType)scrollType
+                       velocity:(NSTimeInterval)scrollVelocity
+                        options:(UIViewAnimationOptions)options;
 
 /**
  类初始化方法
@@ -85,11 +85,11 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
  @param options Now, supports the types of TXScrollLabelViewTypeFlipRepeat\NoRepeat only.
  @param inset just edgeInset.
  */
-+ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
-                       scrollType:(TXScrollLabelViewType)scrollType
-                   scrollVelocity:(NSTimeInterval)scrollVelocity
-                          options:(UIViewAnimationOptions)options
-                            inset:(UIEdgeInsets)inset;
++ (instancetype)scrollWithTitle:(NSString *)scrollTitle
+                           type:(TXScrollLabelViewType)scrollType
+                       velocity:(NSTimeInterval)scrollVelocity
+                        options:(UIViewAnimationOptions)options
+                          inset:(UIEdgeInsets)inset;
 
 #pragma mark - Operation Methods
 /**
@@ -106,4 +106,27 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
  */
 - (void) pauseScrolling;
 
+@end
+
+@interface TXScrollLabelView (TXScrollLabelViewDeprecated)
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:`");
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:type:`");
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:type:velocity:`");
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity
+                          options:(UIViewAnimationOptions)options TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:type:velocity:options:`");
+
++ (instancetype)tx_setScrollTitle:(NSString *)scrollTitle
+                       scrollType:(TXScrollLabelViewType)scrollType
+                   scrollVelocity:(NSTimeInterval)scrollVelocity
+                          options:(UIViewAnimationOptions)options
+                            inset:(UIEdgeInsets)inset TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:type:velocity:options:inset:`");
 @end
