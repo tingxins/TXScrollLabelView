@@ -99,7 +99,6 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 @property (strong, nonatomic) NSTimer *scrollTimer;
 //文本行分割数组
 @property (strong, nonatomic) NSArray *scrollArray;
-
 //是否第一次开始计时
 @property (assign, nonatomic, getter=isFirstTime) BOOL firstTime;
 
