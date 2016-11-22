@@ -209,6 +209,18 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
                                  inset:inset];
 }
 
+#pragma mark - Deprecated Getter & Setter Methods
+/** WILL BE REMOVED IN FUTURE */
+- (void)setTx_scrollContentSize:(CGRect)tx_scrollContentSize{
+    _tx_scrollContentSize = tx_scrollContentSize;
+    self.frame = _tx_scrollContentSize;
+}
+
+- (void)setTx_scrollTitleColor:(UIColor *)tx_scrollTitleColor {
+    self.scrollTitleColor = tx_scrollTitleColor;
+}
+
+
 #pragma mark - Getter & Setter Methods
 
 - (void)setScrollVelocity:(NSTimeInterval)scrollVelocity {
@@ -225,6 +237,11 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
         _scrollVelocity = velocity;
     }
     
+}
+
+- (void)setScrollTitleColor:(UIColor *)scrollTitleColor {
+    _scrollTitleColor = scrollTitleColor;
+    [self setupTextColor:scrollTitleColor];
 }
 
 - (void)setScrollInset:(UIEdgeInsets)scrollInset {
@@ -251,20 +268,9 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     if (_scrollArray) return _scrollArray;
     return _scrollArray = [self getSeparatedLinesFromLabel];
 }
-
-- (void)setTx_scrollContentSize:(CGRect)tx_scrollContentSize{
-    _tx_scrollContentSize = tx_scrollContentSize;
-    self.frame = _tx_scrollContentSize;
-}
-
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self setupSubviewsLayout];
-}
-
-- (void)setTx_scrollTitleColor:(UIColor *)tx_scrollTitleColor {
-    _scrollTitleColor = tx_scrollTitleColor;
-    [self setupTextColor:tx_scrollTitleColor];
 }
 
 - (void)setTextAlignment:(NSTextAlignment)textAlignment {
