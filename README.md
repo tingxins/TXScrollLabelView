@@ -76,7 +76,7 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
         
 You can running **TXScrollLabelViewDemo** for more details.
 
-**Swift example :** Producting.
+**Swift example :** Producting.([**Swift-version**](https://github.com/tingxins/ScrollLabelView))
 
 ## License
 
