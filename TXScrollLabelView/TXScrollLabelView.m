@@ -129,7 +129,20 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     [self addSubview:downLabel];
 }
 
-#pragma mark - init Methods
+- (void)setTapGesture {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
+    [self addGestureRecognizer:tapGesture];
+}
+
+#pragma mark - Target Methods
+
+- (void)didTap {
+    if ([self.scrollLabelViewDelegate respondsToSelector:@selector(scrollLabelView:didClickWithText:)]) {
+        [self.scrollLabelViewDelegate scrollLabelView:self didClickWithText:_scrollTitle];
+    }
+}
+
+#pragma mark - Init Methods
 /** Terminating app due to uncaught exception 'Warning TXScrollLabelView -[TXScrollLabelView init] unimplemented!', reason: 'unimplemented, use - scrollWithTitle:scrollType:scrollVelocity:options:'*/
 - (instancetype)init {
     @throw [NSException exceptionWithName:[NSString stringWithFormat:@"Warning %@ %s unimplemented!", self.class, __func__] reason:@"unimplemented, please use - scrollWithTitle:scrollType:scrollVelocity:options:" userInfo:nil];
@@ -141,6 +154,8 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
         [self setSomePreference];
         
         [self setSomeSubviews];
+        
+        [self setTapGesture];
     }
     return self;
 }

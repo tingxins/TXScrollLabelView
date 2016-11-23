@@ -11,6 +11,14 @@
 #import <UIKit/UIKit.h>
 #import "UIView+TXFrame.h"
 
+@class TXScrollLabelView;
+
+@protocol TXScrollLabelViewDelegate <NSObject>
+@optional
+- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text;
+
+@end
+
 @interface TXScrollLabelView : UIScrollView
 
 typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
@@ -35,6 +43,7 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 /*************ALL ABOVE.***********************************/
 
 #pragma mark - On Used Property
+@property (weak, nonatomic) id<TXScrollLabelViewDelegate> scrollLabelViewDelegate;
 /** 滚动文字 */
 @property (copy, nonatomic) NSString *scrollTitle;
 /** 滚动类型 */
