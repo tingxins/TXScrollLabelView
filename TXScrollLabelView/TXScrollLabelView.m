@@ -166,10 +166,10 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
                       options:(UIViewAnimationOptions)options
                         inset:(UIEdgeInsets)inset {
     if (self = [super init]) {
-        self.scrollTitle = scrollTitle;
-        self.scrollType = scrollType;
+        _scrollTitle = scrollTitle;
+        _scrollType = scrollType;
         self.scrollVelocity = scrollVelocity;
-        self.options = options;
+        _options = options;
         _scrollInset = inset;
     }
     return self;
@@ -225,7 +225,20 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 #pragma mark - Deprecated Getter & Setter Methods
-/** WILL BE REMOVED IN FUTURE */
+/*************WILL BE REMOVED IN FUTURE.****************************/
+
+- (void)setTx_scrollTitle:(NSString *)tx_scrollTitle {
+    self.scrollTitle = tx_scrollTitle;
+}
+
+- (void)setTx_scrollType:(TXScrollLabelViewType)tx_scrollType {
+    self.scrollType = tx_scrollType;
+}
+
+- (void)setTx_scrollVelocity:(NSTimeInterval)tx_scrollVelocity {
+    self.scrollVelocity = tx_scrollVelocity;
+}
+
 - (void)setTx_scrollContentSize:(CGRect)tx_scrollContentSize{
     _tx_scrollContentSize = tx_scrollContentSize;
     self.frame = _tx_scrollContentSize;
@@ -234,14 +247,29 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 - (void)setTx_scrollTitleColor:(UIColor *)tx_scrollTitleColor {
     self.scrollTitleColor = tx_scrollTitleColor;
 }
+/*************ALL ABOVE.*******************************************/
 
 
 #pragma mark - Getter & Setter Methods
 
+- (void)setScrollTitle:(NSString *)scrollTitle {
+    _scrollTitle = scrollTitle;
+//    self.scrollArray = nil;
+    [self resetScrollLabelView];
+}
+
+- (void)setScrollType:(TXScrollLabelViewType)scrollType {
+    if (_scrollType == scrollType) return;
+    
+    _scrollType = scrollType;
+    self.scrollVelocity = _scrollVelocity;
+    [self resetScrollLabelView];
+}
+
 - (void)setScrollVelocity:(NSTimeInterval)scrollVelocity {
     CGFloat velocity = scrollVelocity;
-    if (scrollVelocity < 1) {
-        velocity = 1;
+    if (scrollVelocity < 0.1) {
+        velocity = 0.1;
     }else if (scrollVelocity > 10) {
         velocity = 10;
     }
@@ -251,7 +279,11 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     }else {
         _scrollVelocity = velocity;
     }
-    
+}
+
+- (UIViewAnimationOptions)options {
+    if (_options) return _options;
+    return _options = UIViewAnimationOptionCurveEaseInOut;
 }
 
 - (void)setScrollTitleColor:(UIColor *)scrollTitleColor {
@@ -274,15 +306,11 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     return 0.f;
 }
 
-- (UIViewAnimationOptions)options {
-    if (_options) return _options;
-    return _options = UIViewAnimationOptionCurveEaseInOut;
-}
-
 - (NSArray *)scrollArray {
     if (_scrollArray) return _scrollArray;
     return _scrollArray = [self getSeparatedLinesFromLabel];
 }
+
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self setupSubviewsLayout];
@@ -307,6 +335,12 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 #pragma mark - Custom Methods
+/** 重置滚动视图 */
+- (void)resetScrollLabelView {
+    [self endScrolling];//停止滚动
+    [self setupSubviewsLayout];//重新布局
+    [self beginScrolling];//开始滚动
+}
 
 - (void)setupTextColor:(UIColor *)color {
     self.upLabel.textColor = color;
@@ -391,6 +425,8 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 #pragma mark - Scrolling Operation Methods
 
 - (void)beginScrolling {
+    if (!self.scrollTitle.length) return;
+    
     [self endScrolling];
     
     if (_scrollType == TXScrollLabelViewTypeFlipRepeat || _scrollType == TXScrollLabelViewTypeFlipNoRepeat) {
@@ -407,15 +443,17 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 - (void)endScrolling {
     [self.scrollTimer invalidate];
     self.scrollTimer = nil;
+    self.scrollArray = nil;
 }
 
 - (void)pauseScrolling {
-    [self.scrollTimer invalidate];
-    self.scrollTimer = nil;
+    [self endScrolling];
 }
 
 //开始计时
 - (void)startWithVelocity:(NSTimeInterval)velocity {
+    if (!self.scrollTitle.length) return;
+    
     __weak typeof(self) weakSelf = self;
     self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
         TXScrollLabelView *strongSelf = weakSelf;
@@ -499,10 +537,13 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 - (void)flipNoCleAnimationWithDelay:(NSTimeInterval)delay {
+    if (!self.scrollArray.count) return;
+    
     static int count = 0;
+    if (count >= self.scrollArray.count) count = 0;
     self.upLabel.text = self.scrollArray[count];
     count ++;
-    if (count == self.scrollArray.count) count = 0;
+    if (count >= self.scrollArray.count) count = 0;
     self.downLabel.text = self.scrollArray[count];
     [self flipAnimationWithDelay:delay];
 }

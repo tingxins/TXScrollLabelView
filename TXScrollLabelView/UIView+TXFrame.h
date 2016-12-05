@@ -4,6 +4,7 @@
 //
 //  Created by tingxins on 9/1/16.
 //  Copyright © 2016 tingxins. All rights reserved.
+//  Welcome to my blog: https://tingxins.com
 //
 
 #import <UIKit/UIKit.h>

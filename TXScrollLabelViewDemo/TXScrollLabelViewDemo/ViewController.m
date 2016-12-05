@@ -8,9 +8,8 @@
 
 #import "ViewController.h"
 #import "TXScrollLabelView.h"
-#import "NSString+AttributedString.h"
 
-@interface ViewController ()
+@interface ViewController ()<TXScrollLabelViewDelegate>
 
 @property (weak, nonatomic) TXScrollLabelView *scrollLabelView;
 
@@ -35,34 +34,46 @@
 
 - (void)setSubviews {
     
-    for (int options = 0; options < 4; ++ options) {
-        NSString *scrollTitle = @"If you don't control the image server you're using, you may not be able to change the URL when its content is updated. This is the case for Facebook avatar URLs for instance. In such case, you may use the SDWebImageRefreshCached flag. This will slightly degrade the performance but will respect the HTTP caching control headers";
-        //options 是 TXScrollLabelViewType 枚举类型， 此处仅为了方便举例
-        TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:options velocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
-        [self.view addSubview:scrollLabelView];
-        
-        //布局(Required)
-        scrollLabelView.frame = CGRectMake(50, 100 * (options + 0.7), 300, 30);
-        
-        //偏好(Optional)
-        scrollLabelView.tx_centerX  = [UIScreen mainScreen].bounds.size.width * 0.5;
-        scrollLabelView.scrollInset = UIEdgeInsetsMake(0, 10 , 0, 10);
-        scrollLabelView.scrollSpace = 10;
-        scrollLabelView.font = [UIFont systemFontOfSize:15];
-        scrollLabelView.textAlignment = NSTextAlignmentCenter;
-        scrollLabelView.backgroundColor = [UIColor blackColor];
-        scrollLabelView.layer.cornerRadius = 5;
-        
-        //开始滚动
-        [scrollLabelView beginScrolling];
-        self.scrollLabelView = scrollLabelView;
-        
-        if (options == 0) {
-            NSMutableAttributedString *tempString = [@"2.1.1：本人使用了九宫格布局，为了方便大家，我给大家提供一个链接地址：（暂时还未整理好，需要的联系我qq154158462 请先关注这个博客哦，不然不通过哟），这个就是直接上面的UI效果，很方便的。" setAttributedWithIdentifyStringArray:@[@"我",@"使用了",@"给",@"UI",@"方便",@"链接",@"qq"] color:[UIColor redColor] font:nil];
-            [scrollLabelView setupAttributeTitle:tempString];
-        }
-    }
+    [self addWith:TXScrollLabelViewTypeLeftRight velocity:0.4];
+    
+    [self addWith:TXScrollLabelViewTypeUpDown velocity:1];
+    
+    [self addWith:TXScrollLabelViewTypeFlipRepeat velocity:2];
+    
+    [self addWith:TXScrollLabelViewTypeFlipNoRepeat velocity:2];
 }
 
+- (void)addWith:(TXScrollLabelViewType)type velocity:(CGFloat)velocity {
+    /** Step1: 滚动文字 */
+    NSString *scrollTitle = @"If you don't control the image server you're using, you may not be able to change the URL when its content is updated. This is the case for Facebook avatar URLs for instance. In such case, you may use the SDWebImageRefreshCached flag. This will slightly degrade the performance but will respect the HTTP caching control headers";
+    
+    /** Step2: 创建 ScrollLabelView */
+    TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:type velocity:velocity options:UIViewAnimationOptionCurveEaseInOut];
+    
+    /** Step3: 设置代理进行回调 */
+    scrollLabelView.scrollLabelViewDelegate = self;
+    
+    /** Step4: 布局(Required) */
+    scrollLabelView.frame = CGRectMake(50, 100 * (type + 0.7), 300, 30);
+    
+    [self.view addSubview:scrollLabelView];
+    
+    //偏好(Optional), Preference,if you want.
+    scrollLabelView.tx_centerX  = [UIScreen mainScreen].bounds.size.width * 0.5;
+    scrollLabelView.scrollInset = UIEdgeInsetsMake(0, 10 , 0, 10);
+    scrollLabelView.scrollSpace = 10;
+    scrollLabelView.font = [UIFont systemFontOfSize:15];
+    scrollLabelView.textAlignment = NSTextAlignmentCenter;
+    scrollLabelView.backgroundColor = [UIColor blackColor];
+    scrollLabelView.layer.cornerRadius = 5;
+    
+    /** Step5: 开始滚动(Start scrolling!) */
+    [scrollLabelView beginScrolling];
+    
+}
+
+- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text{
+    NSLog(@"%@",text);
+}
 
 @end
