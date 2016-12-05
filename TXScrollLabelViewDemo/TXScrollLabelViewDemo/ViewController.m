@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "TXScrollLabelView.h"
+#import "NSString+AttributedString.h"
 
 @interface ViewController ()
 
@@ -55,6 +56,11 @@
         //开始滚动
         [scrollLabelView beginScrolling];
         self.scrollLabelView = scrollLabelView;
+        
+        if (options == 0) {
+            NSMutableAttributedString *tempString = [@"2.1.1：本人使用了九宫格布局，为了方便大家，我给大家提供一个链接地址：（暂时还未整理好，需要的联系我qq154158462 请先关注这个博客哦，不然不通过哟），这个就是直接上面的UI效果，很方便的。" setAttributedWithIdentifyStringArray:@[@"我",@"使用了",@"给",@"UI",@"方便",@"链接",@"qq"] color:[UIColor redColor] font:nil];
+            [scrollLabelView setupAttributeTitle:tempString];
+        }
     }
 }
 
