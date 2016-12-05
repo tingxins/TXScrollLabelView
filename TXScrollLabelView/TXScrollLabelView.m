@@ -352,6 +352,13 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     self.downLabel.text = title;
 }
 
+- (void)setupAttributeTitle:(NSAttributedString *)attributeTitle {
+    _scrollTitle = attributeTitle.string;
+    [self setupSubviewsLayout];
+    self.upLabel.attributedText = attributeTitle;
+    self.downLabel.attributedText = attributeTitle;
+}
+
 - (void)setupRepeatTypeLayout {
     CGFloat labelW = self.tx_width - _scrollInset.left - _scrollInset.right;
     CGFloat labelX = _scrollInset.left;

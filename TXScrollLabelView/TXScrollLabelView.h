@@ -64,6 +64,9 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 //根据内容自适应宽度 Pending!!
 @property (assign, nonatomic) BOOL autoWidth;
 
+#pragma mark - setupAttributeTitle
+
+- (void)setupAttributeTitle:(NSAttributedString *)attributeTitle;
 
 #pragma mark - Class Methods
 

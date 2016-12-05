@@ -16,6 +16,7 @@
 		97886DA71DB8E0AF00A0B326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */; };
 		97886DB21DB8E0AF00A0B326 /* TXScrollLabelViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886DB11DB8E0AF00A0B326 /* TXScrollLabelViewDemoTests.m */; };
 		97886DBD1DB8E0AF00A0B326 /* TXScrollLabelViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886DBC1DB8E0AF00A0B326 /* TXScrollLabelViewDemoUITests.m */; };
+		AF1B25351DF5803200AB8923 /* NSString+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = AF1B25341DF5803200AB8923 /* NSString+AttributedString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		97886DB81DB8E0AF00A0B326 /* TXScrollLabelViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TXScrollLabelViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97886DBC1DB8E0AF00A0B326 /* TXScrollLabelViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelViewDemoUITests.m; sourceTree = "<group>"; };
 		97886DBE1DB8E0AF00A0B326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF1B25331DF5803200AB8923 /* NSString+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedString.h"; sourceTree = "<group>"; };
+		AF1B25341DF5803200AB8923 /* NSString+AttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttributedString.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */,
 				97886D9D1DB8E0AF00A0B326 /* ViewController.h */,
 				97886D9E1DB8E0AF00A0B326 /* ViewController.m */,
+				AF1B25331DF5803200AB8923 /* NSString+AttributedString.h */,
+				AF1B25341DF5803200AB8923 /* NSString+AttributedString.m */,
 				97886DA31DB8E0AF00A0B326 /* Assets.xcassets */,
 				97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */,
 				97886DA81DB8E0AF00A0B326 /* Info.plist */,
@@ -295,6 +300,7 @@
 				972620CA1DDE2F0600009F23 /* TXScrollLabelView.m in Sources */,
 				97886D9F1DB8E0AF00A0B326 /* ViewController.m in Sources */,
 				97886D9C1DB8E0AF00A0B326 /* AppDelegate.m in Sources */,
+				AF1B25351DF5803200AB8923 /* NSString+AttributedString.m in Sources */,
 				97886D991DB8E0AF00A0B326 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
