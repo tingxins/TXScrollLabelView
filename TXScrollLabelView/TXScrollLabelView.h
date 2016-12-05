@@ -3,6 +3,7 @@
 //
 //  Created by tingxins on 2/23/16.
 //  Copyright © 2016 tingxins. All rights reserved.
+//  Welcome to my blog: https://tingxins.com
 //  滚动视图
 
 #define TX_DEPRECATED_METHODS(explain) __attribute__((deprecated(explain)))
@@ -48,7 +49,7 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 @property (copy, nonatomic) NSString *scrollTitle;
 /** 滚动类型 */
 @property (assign, nonatomic) TXScrollLabelViewType scrollType;
-/** 滚动速率([1, 10])，单位秒s */
+/** 滚动速率([0, 10])，单位秒s，建议在初始化方法中设置该属性*/
 @property (assign, nonatomic) NSTimeInterval scrollVelocity;
 /** 文本颜色 */
 @property (strong, nonatomic) UIColor *scrollTitleColor;
