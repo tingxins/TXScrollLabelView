@@ -1,6 +1,6 @@
 # TXScrollLabelView（[中文版](http://www.jianshu.com/p/8f1f1b1ee814)）
 
-[![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?maxAge=2592000)](https://github.com/tingxins/TXScrollLabelView)  [![Pod Platform](https://img.shields.io/cocoapods/p/XHLaunchAd.svg?style=flat)](https://github.com/tingxins/TXScrollLabelView)  [![Support](https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg)](https://github.com/tingxins/TXScrollLabelView)  [![Pod License](http://img.shields.io/cocoapods/l/SDWebImage.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?maxAge=2592000)](https://github.com/tingxins/TXScrollLabelView)  [![Pod Platform](https://img.shields.io/cocoapods/p/TXScrollLabelView.svg?style=flat)](https://github.com/tingxins/TXScrollLabelView)  [![Support](https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg)](https://github.com/tingxins/TXScrollLabelView)  [![Pod License](http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)  [![Pod version](https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat)](http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/)
 
 `TXScrollLabelView` is an iOS class that displays a adverts or boardcast e.g. with an view.
 
@@ -52,31 +52,48 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 **Objective-C example :**
 
-        NSString *scrollTitle = @"xxxxxx";
-        //options 是 TXScrollLabelViewType 枚举类型， 此处仅为了方便举例
-        TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:options velocity:3 options:UIViewAnimationOptionTransitionFlipFromTop];
-        [self.view addSubview:scrollLabelView];
-        
-        //布局(Required)
-        scrollLabelView.frame = CGRectMake(50, 100 * (options + 0.7), 300, 30);
-        
-        //偏好(Optional)
-        scrollLabelView.tx_centerX  = [UIScreen mainScreen].bounds.size.width * 0.5;
-        scrollLabelView.scrollInset = UIEdgeInsetsMake(0, 10 , 0, 10);
-        scrollLabelView.scrollSpace = 10;
-        scrollLabelView.font = [UIFont systemFontOfSize:15];
-        scrollLabelView.textAlignment = NSTextAlignmentCenter;
-        scrollLabelView.backgroundColor = [UIColor blackColor];
-        scrollLabelView.layer.cornerRadius = 5;
-        
-        //开始滚动
-        [scrollLabelView beginScrolling];
-        self.scrollLabelView = scrollLabelView;
+    /** Step1: 滚动文字 */
+    NSString *scrollTitle = @"xxxxxx";
+    
+    /** Step2: 创建 ScrollLabelView */
+    TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:TXScrollLabelViewTypeFlipNoRepeat velocity:velocity options:UIViewAnimationOptionCurveEaseInOut];
+    
+    /** Step3: 设置代理进行回调 */
+    scrollLabelView.scrollLabelViewDelegate = self;
+    
+    /** Step4: 布局(Required) */
+    scrollLabelView.frame = CGRectMake(50, 100, 300, 30);
+    
+    [self.view addSubview:scrollLabelView];
+    
+    //偏好(Optional), Preference, if you want to set.
+    scrollLabelView.tx_centerX  = [UIScreen mainScreen].bounds.size.width * 0.5;
+    scrollLabelView.scrollInset = UIEdgeInsetsMake(0, 10 , 0, 10);
+    scrollLabelView.scrollSpace = 10;
+    scrollLabelView.font = [UIFont systemFontOfSize:15];
+    scrollLabelView.textAlignment = NSTextAlignmentCenter;
+    scrollLabelView.backgroundColor = [UIColor blackColor];
+    scrollLabelView.layer.cornerRadius = 5;
+    
+    /** Step5: 开始滚动(Start scrolling!) */
+    [scrollLabelView beginScrolling];
         
         
 You can running **TXScrollLabelViewDemo** for more details.
 
 **Swift example :** Producting.([**Swift-version**](https://github.com/tingxins/ScrollLabelView))
+
+## Communication
+
+Absolutely，you can contribute to this project all the time if you want to.
+
+- If you **need help or ask general question**, just [**@tingxins**](http://weibo.com/tingxins) in `Weibo` or `Twitter`, ofcourse, you can access to my [**blog**](https://tingxins.com).
+
+- If you **found a bug**, just open an issue.
+
+- If you **have a feature request**, just open an issue.
+
+- If you **want to contribute**, fork this repository, and then submit a pull request.
 
 ## License
 
