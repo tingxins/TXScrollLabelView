@@ -1,10 +1,10 @@
-# TXScrollLabelView（[中文版](http://www.jianshu.com/p/8f1f1b1ee814)）
+# ![TXScrollLabelView](imageSource/scrollLabelView-Logo.png)（[中文版](http://www.jianshu.com/p/8f1f1b1ee814)）
 
 [![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?maxAge=2592000)](https://github.com/tingxins/TXScrollLabelView)  [![Pod Platform](https://img.shields.io/cocoapods/p/TXScrollLabelView.svg?style=flat)](https://github.com/tingxins/TXScrollLabelView)  [![Support](https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg)](https://github.com/tingxins/TXScrollLabelView)  [![Pod License](http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)  [![Pod version](https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat)](http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/)
 
 `TXScrollLabelView` is an iOS class that displays a adverts or boardcast e.g. with an view.
 
-![TXScrollLableView Gif](scrollLabelView.gif)
+![TXScrollLableView Gif](imageSource/scrollLabelView.gif)
 
 ## Support what kinds of scrollType
 
