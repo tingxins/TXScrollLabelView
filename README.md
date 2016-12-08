@@ -58,22 +58,12 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
     /** Step2: 创建 ScrollLabelView */
     TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:TXScrollLabelViewTypeFlipNoRepeat velocity:velocity options:UIViewAnimationOptionCurveEaseInOut];
     
-    /** Step3: 设置代理进行回调 */
+    /** Step3: 设置代理进行回调(Optional) */
     scrollLabelView.scrollLabelViewDelegate = self;
     
     /** Step4: 布局(Required) */
     scrollLabelView.frame = CGRectMake(50, 100, 300, 30);
-    
     [self.view addSubview:scrollLabelView];
-    
-    //偏好(Optional), Preference, if you want to set.
-    scrollLabelView.tx_centerX  = [UIScreen mainScreen].bounds.size.width * 0.5;
-    scrollLabelView.scrollInset = UIEdgeInsetsMake(0, 10 , 0, 10);
-    scrollLabelView.scrollSpace = 10;
-    scrollLabelView.font = [UIFont systemFontOfSize:15];
-    scrollLabelView.textAlignment = NSTextAlignmentCenter;
-    scrollLabelView.backgroundColor = [UIColor blackColor];
-    scrollLabelView.layer.cornerRadius = 5;
     
     /** Step5: 开始滚动(Start scrolling!) */
     [scrollLabelView beginScrolling];
