@@ -9,7 +9,7 @@
 
 `TXScrollLabelView` is an iOS class that displays a adverts or boardcast e.g. with an view.([中文版](http://www.jianshu.com/p/8f1f1b1ee814))
 
-![TXScrollLableView Gif](resource/image/scrollLabelView.gif)
+![TXScrollLableView Gif](Resource/image/scrollLabelView.gif)
 
 ## Support what kinds of scrollType
 
