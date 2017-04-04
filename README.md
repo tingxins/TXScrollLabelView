@@ -1,5 +1,7 @@
 <p align="center">
+
 <img src="http://image.tingxins.cn/TXScrollLabelView/master/scroll-label-view.png" width=600/>
+
 </p>
 
 <p align="center">
@@ -13,6 +15,7 @@
 <a href="https://www.apache.org/licenses/LICENSE-2.0.html"><img src="http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat"></a>
 
 <a href="http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/"><img src="https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat"></a>
+
 </p>
 
 `TXScrollLabelView` is an iOS class that displays a adverts or boardcast e.g. with an view.([中文版](http://www.jianshu.com/p/8f1f1b1ee814))
