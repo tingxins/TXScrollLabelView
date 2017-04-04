@@ -1,15 +1,23 @@
 <p align="center">
-<br/>
-<img src="Resource/image/scrollLabelView-logo.png" height=150px/>
-<br/><br/>
+<img src="http://image.tingxins.cn/TXScrollLabelView/master/scroll-label-view.png" width=600/>
 </p>
 
+<p align="center">
 
-[![AppVeyor](https://img.shields.io/magnumci/ci/96ffb83fa700f069024921b0702e76ff.svg)](https://github.com/tingxins/TXScrollLabelView)  [![Pod Platform](https://img.shields.io/cocoapods/p/TXScrollLabelView.svg?style=flat)](https://github.com/tingxins/TXScrollLabelView)  [![Support](https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg)](https://github.com/tingxins/TXScrollLabelView)  [![Pod License](http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)  [![Pod version](https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat)](http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/)
+<a href="https://travis-ci.org/tingxins/TXScrollLabelView"><img src="https://img.shields.io/travis/tingxins/TXScrollLabelView.svg"></a>
+
+<a href="https://github.com/tingxins/TXScrollLabelView"><img src="https://img.shields.io/cocoapods/p/TXScrollLabelView.svg?style=flat"></a>
+
+<a href="https://github.com/tingxins/TXScrollLabelView"><img src="https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg"></a>
+
+<a href="https://www.apache.org/licenses/LICENSE-2.0.html"><img src="http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat"></a>
+
+<a href="http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/"><img src="https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat"></a>
+</p>
 
 `TXScrollLabelView` is an iOS class that displays a adverts or boardcast e.g. with an view.([中文版](http://www.jianshu.com/p/8f1f1b1ee814))
 
-![TXScrollLableView Gif](Resource/image/scrollLabelView.gif)
+![TXScrollLableView Gif](http://image.tingxins.cn/TXScrollLabelView/master/scroll-label-view.gif)
 
 ## Support what kinds of scrollType
 
