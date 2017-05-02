@@ -34,7 +34,7 @@
 
 - (void)setSubviews {
     
-    [self addWith:TXScrollLabelViewTypeLeftRight velocity:0.4];
+    [self addWith:TXScrollLabelViewTypeLeftRight velocity:1];
     
     [self addWith:TXScrollLabelViewTypeUpDown velocity:1];
     
