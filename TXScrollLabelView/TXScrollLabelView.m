@@ -225,7 +225,7 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 }
 
 #pragma mark - Deprecated Getter & Setter Methods
-/*************WILL BE REMOVED IN FUTURE.****************************/
+/*************WILL BE REMOVED IN THE FUTURE.****************************/
 
 - (void)setTx_scrollTitle:(NSString *)tx_scrollTitle {
     self.scrollTitle = tx_scrollTitle;
@@ -370,7 +370,9 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
                                  width:(CGFloat)width
                                 height:(CGFloat)height
                       completedHandler:(void(^)(CGSize size))completedHandler {
-    CGSize scrollLabelS = [_scrollTitle boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.font} context:nil].size;
+    CGSize scrollLabelS = [_scrollTitle boundingRectWithSize:size
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName: self.font} context:nil].size;
     //回调获取布局数据
     completedHandler(scrollLabelS);
     [self setupTitle:_scrollTitle];
@@ -380,33 +382,11 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 
 - (void)setupSubviewsLayout {
     switch (_scrollType) {
-        case TXScrollLabelViewTypeLeftRight: {
-            CGFloat labelMaxH = self.tx_height;//最大高度
-            CGFloat labelMaxW = 0;//无限宽
-            CGFloat labelH = labelMaxH;//label实际高度
-            __block CGFloat labelW = 0;//label宽度，有待计算
-            
-            [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
-                labelW = MAX(size.width, self.tx_width);
-                //开始布局
-                self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
-                //由于 TXScrollLabelViewTypeLeftRight\UpDown 类型 X\Y 值均不一样，此处不再block中处理！
-                self.downLabel.frame = CGRectMake(CGRectGetMaxX(self.upLabel.frame) + self.scrollSpace, 0, labelW, labelH);
-            }];
-        }
+        case TXScrollLabelViewTypeLeftRight:
+            [self setupSubviewsLayout_LeftRight];
             break;
-        case TXScrollLabelViewTypeUpDown: {
-            CGFloat labelMaxH = 0;
-            CGFloat labelMaxW = self.tx_width - _scrollInset.left - _scrollInset.right;
-            CGFloat labelW = labelMaxW;
-            __block CGFloat labelH = 0;
-            
-            [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
-                labelH = MAX(size.height, self.tx_height);
-                self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
-                self.downLabel.frame = CGRectMake(_scrollInset.left, CGRectGetMaxY(self.upLabel.frame) + self.scrollSpace, labelW, labelH);
-            }];
-        }
+        case TXScrollLabelViewTypeUpDown:
+            [self setupSubviewsLayout_UpDown];
             break;
         case TXScrollLabelViewTypeFlipRepeat: {
             [self setupRepeatTypeLayout];
@@ -420,6 +400,39 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
         default:
             break;
     }
+}
+
+#pragma mark - Layout Methods
+
+- (void)setupSubviewsLayout_LeftRight {
+    
+    CGFloat labelMaxH = self.tx_height;//最大高度
+    CGFloat labelMaxW = 0;//无限宽
+    CGFloat labelH = labelMaxH;//label实际高度
+    __block CGFloat labelW = 0;//label宽度，有待计算
+    
+    [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
+        labelW = MAX(size.width, self.tx_width);
+        //开始布局
+        self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
+        //由于 TXScrollLabelViewTypeLeftRight\UpDown 类型 X\Y 值均不一样，此处不再block中处理！
+        self.downLabel.frame = CGRectMake(CGRectGetMaxX(self.upLabel.frame) + self.scrollSpace, 0, labelW, labelH);
+    }];
+}
+
+
+
+- (void)setupSubviewsLayout_UpDown {
+    CGFloat labelMaxH = 0;
+    CGFloat labelMaxW = self.tx_width - _scrollInset.left - _scrollInset.right;
+    CGFloat labelW = labelMaxW;
+    __block CGFloat labelH = 0;
+    
+    [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
+        labelH = MAX(size.height, self.tx_height);
+        self.upLabel.frame = CGRectMake(_scrollInset.left, 0, labelW, labelH);
+        self.downLabel.frame = CGRectMake(_scrollInset.left, CGRectGetMaxY(self.upLabel.frame) + self.scrollSpace, labelW, labelH);
+    }];
 }
 
 #pragma mark - Scrolling Operation Methods
@@ -453,7 +466,7 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 //开始计时
 - (void)startWithVelocity:(NSTimeInterval)velocity {
     if (!self.scrollTitle.length) return;
-    
+
     __weak typeof(self) weakSelf = self;
     self.scrollTimer = [NSTimer tx_scheduledTimerWithTimeInterval:velocity repeat:YES block:^(NSTimer *timer) {
         TXScrollLabelView *strongSelf = weakSelf;
@@ -479,47 +492,54 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
 - (void)updateScrolling {
     switch (self.scrollType) {
         case TXScrollLabelViewTypeLeftRight:
-        {
-            if (self.contentOffset.x >= (_scrollInset.left + self.upLabel.tx_width + self.scrollSpace)) {
-                [self endScrolling];
-                self.contentOffset = CGPointMake(_scrollInset.left + 1, 0);//x增加偏移量，防止卡顿
-                [self beginScrolling];
-            }else {
-                self.contentOffset = CGPointMake(self.contentOffset.x + 1, self.contentOffset.y);
-            }
-        }
+            [self updateScrollingType_LeftRight];
             break;
-            
         case TXScrollLabelViewTypeUpDown:
-        {
-            if (self.contentOffset.y >= (self.upLabel.frame.size.height + self.scrollSpace)) {
-                [self endScrolling];
-                self.contentOffset = CGPointMake(0, 2);//y增加偏移量，防止卡顿
-                [self beginScrolling];
-            }else {
-                self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y + 1);
-            }
-        }
+            [self updateScrollingType_UpDown];
             break;
-            
         case TXScrollLabelViewTypeFlipRepeat:
-        {
-            [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
-                [self flipAnimationWithDelay:velocity];
-            }];
-        }
+            [self updateScrollingType_FlipRepeat];
             break;
-            
         case TXScrollLabelViewTypeFlipNoRepeat:
-        {
-            [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
-                [self flipNoCleAnimationWithDelay:velocity];
-            }];
-        }
+            [self updateScrollingType_FlipNoRepeat];
             break;
         default:
             break;
     }
+}
+
+#pragma mark - ScrollLabelView + Methods
+
+- (void)updateScrollingType_LeftRight {
+    if (self.contentOffset.x >= (_scrollInset.left + self.upLabel.tx_width + self.scrollSpace)) {
+        [self endScrolling];
+        self.contentOffset = CGPointMake(_scrollInset.left + 1, 0);//x增加偏移量，防止卡顿
+        [self beginScrolling];
+    }else {
+        self.contentOffset = CGPointMake(self.contentOffset.x + 1, self.contentOffset.y);
+    }
+}
+
+- (void)updateScrollingType_UpDown {
+    if (self.contentOffset.y >= (self.upLabel.frame.size.height + self.scrollSpace)) {
+        [self endScrolling];
+        self.contentOffset = CGPointMake(0, 2);//y增加偏移量，防止卡顿
+        [self beginScrolling];
+    }else {
+        self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y + 1);
+    }
+}
+
+- (void)updateScrollingType_FlipRepeat {
+    [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
+        [self flipAnimationWithDelay:velocity];
+    }];
+}
+
+- (void)updateScrollingType_FlipNoRepeat {
+    [self updateRepeatTypeWithOperation:^(NSTimeInterval velocity) {
+        [self flipNoCleAnimationWithDelay:velocity];
+    }];
 }
 
 - (void)flipAnimationWithDelay:(NSTimeInterval)delay {
@@ -548,9 +568,10 @@ static const NSInteger TXScrollDefaultTimeInterval = 2.0;//滚动默认时间
     [self flipAnimationWithDelay:delay];
 }
 
-#pragma mark - 文本行分割
+#pragma mark - Text-Separator
 
 -(NSArray *)getSeparatedLinesFromLabel {
+    if (!_scrollTitle.length) return nil;
     
     NSString *text = _scrollTitle;
     UIFont *font = self.font;

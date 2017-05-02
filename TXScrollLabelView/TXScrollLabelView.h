@@ -68,13 +68,15 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
 
 - (void)setupAttributeTitle:(NSAttributedString *)attributeTitle;
 
-#pragma mark - Class Methods
+#pragma mark - Instance Methods
 
 - (instancetype)initWithTitle:(NSString *)scrollTitle
                          type:(TXScrollLabelViewType)scrollType
                      velocity:(NSTimeInterval)scrollVelocity
                       options:(UIViewAnimationOptions)options
                         inset:(UIEdgeInsets)inset;
+
+#pragma mark - Class Methods
 
 + (instancetype)scrollWithTitle:(NSString *)scrollTitle;
 
