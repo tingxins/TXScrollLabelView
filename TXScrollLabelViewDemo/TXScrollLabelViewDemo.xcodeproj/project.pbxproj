@@ -228,7 +228,7 @@
 				TargetAttributes = {
 					97886D931DB8E0AF00A0B326 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = X37JS8D42G;
+						DevelopmentTeam = QZ2B7EZFJP;
 						ProvisioningStyle = Automatic;
 					};
 					97886DAC1DB8E0AF00A0B326 = {
@@ -442,11 +442,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X37JS8D42G;
+				DEVELOPMENT_TEAM = QZ2B7EZFJP;
 				INFOPLIST_FILE = TXScrollLabelViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tingxins.TXScrollLabelViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tingxins.demo.TXScrollLabelViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -455,11 +455,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X37JS8D42G;
+				DEVELOPMENT_TEAM = QZ2B7EZFJP;
 				INFOPLIST_FILE = TXScrollLabelViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tingxins.TXScrollLabelViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tingxins.demo.TXScrollLabelViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
