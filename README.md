@@ -63,6 +63,8 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
     
 ## Usage 
 
+Now, TXScrollLabelView supports both **array & string**. just enjoy it. 👀
+
 **Objective-C example :**
 
     /** Step1: 滚动文字 */
