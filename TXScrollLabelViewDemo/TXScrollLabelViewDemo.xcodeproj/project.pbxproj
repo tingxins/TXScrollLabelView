@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		972620CA1DDE2F0600009F23 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 972620C61DDE2F0600009F23 /* TXScrollLabelView.m */; };
 		972620CB1DDE2F0600009F23 /* UIView+TXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 972620C91DDE2F0600009F23 /* UIView+TXFrame.m */; };
+		97883B5E1EBD7A6800552DFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97883B5D1EBD7A6800552DFE /* Main.storyboard */; };
 		97886D991DB8E0AF00A0B326 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D981DB8E0AF00A0B326 /* main.m */; };
 		97886D9C1DB8E0AF00A0B326 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9B1DB8E0AF00A0B326 /* AppDelegate.m */; };
 		97886D9F1DB8E0AF00A0B326 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97886D9E1DB8E0AF00A0B326 /* ViewController.m */; };
@@ -41,6 +42,7 @@
 		972620C71DDE2F0600009F23 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
 		972620C81DDE2F0600009F23 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
 		972620C91DDE2F0600009F23 /* UIView+TXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXFrame.m"; sourceTree = "<group>"; };
+		97883B5D1EBD7A6800552DFE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		97886D941DB8E0AF00A0B326 /* TXScrollLabelViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXScrollLabelViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97886D981DB8E0AF00A0B326 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		97886D9A1DB8E0AF00A0B326 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				97886DA31DB8E0AF00A0B326 /* Assets.xcassets */,
 				97886DA51DB8E0AF00A0B326 /* LaunchScreen.storyboard */,
 				97886DA81DB8E0AF00A0B326 /* Info.plist */,
+				97883B5D1EBD7A6800552DFE /* Main.storyboard */,
 				97886D971DB8E0AF00A0B326 /* Supporting Files */,
 			);
 			path = TXScrollLabelViewDemo;
@@ -270,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97883B5E1EBD7A6800552DFE /* Main.storyboard in Resources */,
 				97886DA71DB8E0AF00A0B326 /* LaunchScreen.storyboard in Resources */,
 				97886DA41DB8E0AF00A0B326 /* Assets.xcassets in Resources */,
 			);

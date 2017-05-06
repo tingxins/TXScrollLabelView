@@ -4,7 +4,14 @@
 //
 //  Created by tingxins on 20/10/2016.
 //  Copyright © 2016 tingxins. All rights reserved.
-//
+//  如果在使用 TXScrollLabelView 的过程中出现bug，请及时联系，我会尽快进行修复。如果有更好的点子，直接 Open an issue 或者 submit a pr。
+/**
+    Blog : https://tingxins.com
+    简书 ：http://www.jianshu.com/u/5141561e4d59
+    GitHub : https://github.com/tingxins
+    Weibo : http://weibo.com/tingxins
+    Twitter : http://twitter.com/tingxins
+ */
 
 #import "ViewController.h"
 #import "TXScrollLabelView.h"
@@ -34,21 +41,38 @@
 
 - (void)setSubviews {
     
-    [self addWith:TXScrollLabelViewTypeLeftRight velocity:1];
+    [self addWith:TXScrollLabelViewTypeLeftRight velocity:1 isArray:_isArray];
     
-    [self addWith:TXScrollLabelViewTypeUpDown velocity:1];
-    
-    [self addWith:TXScrollLabelViewTypeFlipRepeat velocity:2];
-    
-    [self addWith:TXScrollLabelViewTypeFlipNoRepeat velocity:2];
+    [self addWith:TXScrollLabelViewTypeUpDown velocity:2 isArray:_isArray];
+
+    [self addWith:TXScrollLabelViewTypeFlipRepeat velocity:2 isArray:_isArray];
+
+    [self addWith:TXScrollLabelViewTypeFlipNoRepeat velocity:2 isArray:_isArray];
 }
 
-- (void)addWith:(TXScrollLabelViewType)type velocity:(CGFloat)velocity {
+- (void)addWith:(TXScrollLabelViewType)type velocity:(CGFloat)velocity isArray:(BOOL)isArray {
     /** Step1: 滚动文字 */
-    NSString *scrollTitle = @"If you don't control the image server you're using, you may not be able to change the URL when its content is updated. This is the case for Facebook avatar URLs for instance. In such case, you may use the SDWebImageRefreshCached flag. This will slightly degrade the performance but will respect the HTTP caching control headers";
+    
+    NSString *scrollTitle = @"如果在使用 TXScrollLabelView 的过程中出现bug，请及时联系，我会尽快进行修复。如果有更好的点子，直接 Open an issue 或者 submit a pr on GitHub。Thanks.";
+    
+    NSArray *scrollTexts = @[@"If you need help or ask general question,",
+                             @"just @tingxins in Weibo or Twitter, ofcourse, you can follow me. Welcome access to my blog.",
+                             @"If you found a bug, just open an issue.",
+                             @"If you have a feature request, just open an issue.",
+                             @"If you want to contribute, fork this repository, and then submit a pull request.",
+                             @"Blog : https://tingxins.com",
+                             @"简书 ：http://www.jianshu.com/u/5141561e4d59",
+                             @"GitHub : https://github.com/tingxins",
+                             @"Weibo : http://weibo.com/tingxins",
+                             @"Twitter : http://twitter.com/tingxins"];
     
     /** Step2: 创建 ScrollLabelView */
-    TXScrollLabelView *scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:type velocity:velocity options:UIViewAnimationOptionCurveEaseInOut];
+    TXScrollLabelView *scrollLabelView = nil;
+    if (isArray) {
+        scrollLabelView = [TXScrollLabelView scrollWithTextArray:scrollTexts type:type velocity:velocity options:UIViewAnimationOptionCurveEaseInOut inset:UIEdgeInsetsZero];
+    }else {
+        scrollLabelView = [TXScrollLabelView scrollWithTitle:scrollTitle type:type velocity:velocity options:UIViewAnimationOptionCurveEaseInOut];
+    }
     
     /** Step3: 设置代理进行回调 */
     scrollLabelView.scrollLabelViewDelegate = self;
