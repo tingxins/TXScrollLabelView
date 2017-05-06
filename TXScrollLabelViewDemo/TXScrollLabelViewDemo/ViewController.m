@@ -95,8 +95,8 @@
     [scrollLabelView beginScrolling];
 }
 
-- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text{
-    NSLog(@"%@",text);
+- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text atIndex:(NSInteger)index{
+    NSLog(@"%@--%ld",text, index);
 }
 
 @end
