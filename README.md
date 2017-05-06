@@ -65,7 +65,9 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 Now, TXScrollLabelView supports both **array & string**. just enjoy it. 👀
 
-**Objective-C example :**
+### Example
+
+**Objective-C :**
 
     /** Step1: 滚动文字 */
     NSString *scrollTitle = @"xxxxxx";
@@ -86,7 +88,17 @@ Now, TXScrollLabelView supports both **array & string**. just enjoy it. 👀
         
 You can running **TXScrollLabelViewDemo** for more details.
 
-**Swift example :** Producting.([**Swift-version**](https://github.com/tingxins/ScrollLabelView))
+**Swift :** Producting.([**Swift-version**](https://github.com/tingxins/ScrollLabelView))
+
+### Delegate Method
+
+Tap Gesture callback.
+
+```
+
+- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text atIndex:(NSInteger)index;
+
+```
 
 ## Communication
 
