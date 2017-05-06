@@ -144,18 +144,23 @@ typedef NS_ENUM(NSInteger, TXScrollLabelType) {
     TXScrollLabel *downLabel = [TXScrollLabel tx_label];
     self.downLabel = downLabel;
     [self addSubview:downLabel];
+    
+    [upLabel addTapGesture:self sel:@selector(didTap:)];
+    [downLabel addTapGesture:self sel:@selector(didTap:)];
 }
 
-- (void)setTapGesture {
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
-    [self addGestureRecognizer:tapGesture];
-}
+#pragma mark - UITapGestureRecognizer Methods
 
-#pragma mark - Target Methods
-
-- (void)didTap {
-    if ([self.scrollLabelViewDelegate respondsToSelector:@selector(scrollLabelView:didClickWithText:)]) {
-        [self.scrollLabelViewDelegate scrollLabelView:self didClickWithText:_scrollTitle];
+- (void)didTap:(UITapGestureRecognizer *)tapGesture {
+    UILabel *label = (UILabel *)tapGesture.view;
+    
+    if (!label || ![label isKindOfClass:[UILabel class]]) return;
+    
+    NSInteger index = 0;
+    if (self.scrollArray.count) index = [self.scrollArray indexOfObject:label.text];
+    
+    if ([self.scrollLabelViewDelegate respondsToSelector:@selector(scrollLabelView:didClickWithText:atIndex:)]) {
+        [self.scrollLabelViewDelegate scrollLabelView:self didClickWithText:label.text atIndex:index];
     }
 }
 
@@ -171,8 +176,6 @@ typedef NS_ENUM(NSInteger, TXScrollLabelType) {
         [self setSomePreference];
         
         [self setSomeSubviews];
-        
-        [self setTapGesture];
     }
     return self;
 }
@@ -845,6 +848,17 @@ void (*setter)(id, SEL, NSString *, TXScrollLabelType);
                         velocity:scrollVelocity
                          options:options
                            inset:inset];
+}
+
+@end
+
+
+@implementation UIView (TXAdditions)
+
+- (void)addTapGesture:(id)target sel:(SEL)selector {
+    self.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
+    [self addGestureRecognizer:tap];
 }
 
 @end

@@ -22,7 +22,7 @@
 
 @protocol TXScrollLabelViewDelegate <NSObject>
 @optional
-- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text;
+- (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView didClickWithText:(NSString *)text atIndex:(NSInteger)index;
 
 @end
 
@@ -171,3 +171,10 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
                           options:(UIViewAnimationOptions)options
                             inset:(UIEdgeInsets)inset TX_DEPRECATED_MESSAGES("Method deprecated. Use `+ scrollWithTitle:type:velocity:options:inset:`");
 @end
+
+@interface UIView (TXAdditions)
+
+- (void)addTapGesture:(id)target sel:(SEL)selector;
+
+@end
+
