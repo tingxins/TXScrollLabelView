@@ -643,7 +643,7 @@ typedef NS_ENUM(NSInteger, TXScrollLabelType) {
 - (void)updateScrollingType_UpDown {
     if (self.contentOffset.y >= (self.upLabel.tx_height + self.scrollSpace)) {
         /** 更新 Label.text */
-        if ((self.contentOffset.y > (self.upLabel.tx_height)) &&
+        if ((self.contentOffset.y >= (self.upLabel.tx_height)) &&
             self.isArray) {
             [self updateTextForScrollViewWithSEL:@selector(updateUpDownScrollLabelLayoutWithText:labelType:)];
         }
