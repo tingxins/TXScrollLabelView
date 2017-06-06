@@ -45,7 +45,7 @@ There are three ways to use TXScrollLabelView in your project:
 
 * Using Carthage
 
-### Installation with CocoaPods
+### CocoaPods
     
 CocoaPods is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries in your projects. 
 
@@ -54,13 +54,13 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
     platform :ios, '7.0'
     pod 'TXScrollLabelView'
 
-### Installation with Manual
+### Manual
 
 Download repo's zip, and just drag **ALL** files in the TXScrollLabelView folder to your projects. Import header file when you are using:
 
     #import "TXScrollLabelView.h"
    
-## Carthage
+### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
