@@ -7,10 +7,11 @@
 <p align="center">
 
 <a href="https://travis-ci.org/tingxins/TXScrollLabelView"><img src="https://img.shields.io/travis/tingxins/TXScrollLabelView.svg"></a>
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
+<a href="http://cocoadocs.org/docsets/TXScrollLabelView"><img src="https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat"></a>
 <a href="https://github.com/tingxins/TXScrollLabelView"><img src="https://img.shields.io/cocoapods/p/TXScrollLabelView.svg?style=flat"></a>
 <a href="https://github.com/tingxins/TXScrollLabelView"><img src="https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg"></a>
 <a href="https://www.apache.org/licenses/LICENSE-2.0.html"><img src="http://img.shields.io/cocoapods/l/TXScrollLabelView.svg?style=flat"></a>
-<a href="http://cocoadocs.org/docsets/TXScrollLabelView/1.2.0/"><img src="https://img.shields.io/cocoapods/v/TXScrollLabelView.svg?style=flat"></a>
 
 
 </p>
