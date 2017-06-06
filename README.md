@@ -36,13 +36,13 @@ And `scrollVelocity` property now supports all above enum of `TXScrollLabelViewT
 
 ## Installation
 
-There are two ways to use TXScrollLabelView in your project:
+There are three ways to use TXScrollLabelView in your project:
 
 * Using CocoaPods
 
-* By cloning the project into your repository
+* Manual
 
-* Using Carthage (not support now)
+* Using Carthage
 
 ### Installation with CocoaPods
     
@@ -55,12 +55,25 @@ CocoaPods is a dependency manager for Objective-C, which automates and simplifie
 
 ### Installation with Manual
 
-* Drag **ALL** files in the TXScrollLabelView folder to project
+Download repo's zip, and just drag **ALL** files in the TXScrollLabelView folder to your projects. Import header file when you are using:
 
-* Import the main file：
-    
-        #import "TXScrollLabelView.h”
-    
+    #import "TXScrollLabelView.h"
+   
+## Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+    $ brew update
+    $ brew install carthage
+        
+To integrate **TXScrollLableView** into your Xcode project using Carthage, specify it in your Cartfile:
+
+    github "tingxins/TXScrollLableView"
+
+Run carthage to build the frameworks and drag the framework into your Xcode project.
+        
 ## Usage 
 
 Now, TXScrollLabelView supports both **array & string**. just enjoy it. 👀
