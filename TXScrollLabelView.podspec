@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
   s.name         = "TXScrollLabelView"
   s.version      = "1.3.2"
-  s.summary      = "TXScrollLabelView (Objective-C), the best way to show & display informations such as Adverts / Boardcast / OnSale e.g. with a customView.（快速接入自定义标签滚动视图，可以做广告栏、广播栏等等展示）"
+  s.summary      = "TXScrollLabelView (Objective-C), the best way to show & display informations such as Adverts / Boardcast / OnSale e.g. with a customView."
   s.homepage     = "https://github.com/tingxins/TXScrollLabelView"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "tingxins" => "tingxins@sina.com" }
