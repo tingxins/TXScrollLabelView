@@ -444,7 +444,7 @@ typedef NS_ENUM(NSInteger, TXScrollLabelType) {
     CGFloat labelMaxW = 0;//无限宽
     CGFloat labelH = labelMaxH;//label实际高度
     __block CGFloat labelW = 0;//label宽度，有待计算
-    
+    self.contentOffset = CGPointZero;
     [self setupLRUDTypeLayoutWithMaxSize:CGSizeMake(labelMaxW, labelMaxH) width:labelW height:labelH completedHandler:^(CGSize size) {
         labelW = MAX(size.width, self.tx_width);
         //开始布局
