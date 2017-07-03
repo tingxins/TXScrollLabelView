@@ -130,4 +130,10 @@ Absolutely，you can contribute to this project all the time if you want to.
 
 `TXScrollLabelView` is available under the MIT license. See the LICENSE file for more info.
 
+## Ad
+
+Welcome to my Official Account of WeChat.
+
+![wechat-qrcode](http://image.tingxins.cn/adv/wechat-qrcode.jpg)
+
 
