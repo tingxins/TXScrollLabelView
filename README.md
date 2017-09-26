@@ -20,7 +20,7 @@
 
 > [中文介绍](http://www.jianshu.com/p/8f1f1b1ee814)
 
-![TXScrollLableView Gif](http://image.tingxins.cn/TXScrollLabelView/master/scroll-label-view.gif)
+![x-scroll-label-view](http://image.tingxins.cn/TXScrollLabelView/master/x-scroll-label-view.gif)
 
 ## Support what kinds of scrollType
 
