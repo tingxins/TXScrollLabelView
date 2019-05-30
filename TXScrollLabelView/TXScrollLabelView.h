@@ -113,6 +113,12 @@ typedef NS_ENUM(NSInteger, TXScrollLabelViewType) {
                           inset:(UIEdgeInsets)inset;
 
 #pragma mark - Operation Methods
+
+/**
+ 当需要重置位置的赋值的时候
+ */
+- (void)resetPosition;
+
 /**
  *  开始滚动
  */

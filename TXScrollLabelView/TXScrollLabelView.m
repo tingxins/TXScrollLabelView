@@ -544,6 +544,31 @@ typedef NS_ENUM(NSInteger, TXScrollLabelType) {
 
 #pragma mark - Scrolling Operation Methods -- Public
 
+- (void)resetPosition
+{
+    self.contentOffset = CGPointMake(0, 0);
+    switch (_scrollType) {
+        case TXScrollLabelViewTypeLeftRight:
+            [self setupSubviewsLayout_LeftRight];
+            break;
+        case TXScrollLabelViewTypeUpDown:
+            [self setupSubviewsLayout_UpDown];
+            break;
+        case TXScrollLabelViewTypeFlipRepeat: {
+            [self setupSubviewsLayout_Flip];
+            [self setupTitle:_scrollTitle];
+        }
+            break;
+        case TXScrollLabelViewTypeFlipNoRepeat:
+            [self setupSubviewsLayout_Flip];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
 - (void)beginScrolling {
     self.currentSentence = 0;
     if (self.isArray) {
