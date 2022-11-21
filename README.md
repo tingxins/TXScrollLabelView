@@ -1,6 +1,6 @@
 <p align="center">
 
-<img src="http://image.tingxins.cn/TXScrollLabelView/master/scroll-label-view.png" width=600/>
+<img src="https://tingxins.com/assets/histories/TXScrollLabelView/master/scroll-label-view.png" width=600/>
 
 </p>
 
@@ -20,7 +20,7 @@
 
 > [中文介绍](http://www.jianshu.com/p/8f1f1b1ee814)
 
-![x-scroll-label-view](http://image.tingxins.cn/TXScrollLabelView/master/x-scroll-label-view.gif)
+![x-scroll-label-view](https://tingxins.com/assets/histories/TXScrollLabelView/master/x-scroll-label-view.gif)
 
 ## Support what kinds of scrollType
 
@@ -136,6 +136,5 @@ Absolutely，you can contribute to this project all the time if you want to.
 
 Welcome to my Official Account of WeChat.
 
-![wechat-qrcode](http://image.tingxins.cn/adv/wechat-qrcode.jpg)
-
+![wechat-qrcode](https://tingxins.github.io/assets/histories/adv/wechat-qrcode.jpg)
 
